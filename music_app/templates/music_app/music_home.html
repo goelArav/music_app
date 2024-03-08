@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Home</title>
+</head>
+
+<body>
+  {% include 'music_app/topnav.html'%}
+  <section class="section">
+
+    <form action="{%url 'music_app:search' %}" method='get'>
+
+      <p><input type="text" name="search" placeholder="Search name of musician here:"></p>
+      <input type="submit" value="search">
+
+
+
+
+
+    </form>
+
+    {% for genre in genres %}
+    <li><a href="{% url 'music_app:genrebased_home' genre.id %}">{{genre.genre_text}}</a></li>
+
+    {% endfor %}
+
+    {% if most_followed_musicians %}
+
+    <ul>
+      {% for m in most_followed_musicians %}
+      <div class="column">
+
+        <div class="box">
+          <li><a href="{% url 'music_app:musician_page' m.id %}">{{ m.musician_name }}</a></li>
+          {% if m.musician_photo %}
+          <figure class="image is-128x128">
+            <img class="is-rounded" src="{{m.musician_photo.url}}">
+          </figure>
+          {% endif %}
+          <p>No. of followers:</p>
+          {{m.nfollowers}} <br></li>
+        </div>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No musicians are available.</p>
+
+
+
+    {% endif %}
+
+    </div>
+  </div>
+
+
+
+    <form action="{%url 'music_app:add_musician' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <p><input type="text" name="add_musician" placeholder="Write name of musician here"></p>
+      <p><input type="text" name="add_bio" placeholder="Write a brief musician bio here"></p>
+
+
+
+
+      <select name="genre" id="genre">
+        {% for genre in genres %}
+        <option value="{{genre.id}}">{{genre.genre_text}}</option>
+        {% endfor %}
+      </select>
+
+      <label for="add_image">Upload an image here</label>
+      <p><input type='file' name='add_image' id="add_image" accept="image/*"></p>
+      <p><input type="submit" value="Add"></p>
+
+
+    </form>
+    <a href="{% url 'music_app:logout' %}">Press to Logout</a>
+  </section>
+
+</body>
+
+</html>

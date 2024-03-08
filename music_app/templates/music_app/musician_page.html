@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+    
+
+
+
+
+    <!-- for commands need {\%%\}, for variable {\{}\} -->
+    <a href="{% url 'music_app:music_home'%}">Home</a>
+    <li>{{ musician.musician_name }}</li> 
+    {% if musician.musician_photo %}
+    <img src="{{musician.musician_photo.url}}" width="256px" alt="">
+    {% endif %}
+    {% if musician.musician_bio %}
+    <li>Bio: {{ musician.musician_bio }}</li>
+    {% endif %}
+
+    {% if request.user not in musician.musician_followers.all %}
+    <a href="{% url 'music_app:follow_musician' musician.id %}">follow</a>
+
+    
+    {% else %}
+        <a href="{% url 'music_app:follow_musician' musician.id %}">unfollow</a>
+        
+    {% endif %}
+  
+
+
+    {% if posts %}
+        {% include 'music_app/posts.html' %}        
+    {% else %}
+        <p>This musician does not have any posts.</p>
+
+    {% endif %}
+    <form action="{%url 'music_app:post_post' musician.id%}" method="post"  enctype="multipart/form-data">
+        {% csrf_token %}
+        <p><input type="text" name="post_post" placeholder="Post Here"></p>
+        <label for="post_image">Upload an image here</label>
+        <p><input type='file' name='post_image' id="post_image" accept="image/*"></p>
+        <p><input type="submit" value="Post"></p>
+    </form>
+    
+</body>
+</html>

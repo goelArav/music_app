@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and sign up page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+</head>
+
+<body>
+    <section class="section">
+        {% if messages %}
+        {% for message in messages %}
+        <p style="text-decoration: underline;">{{message}}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="columns">
+            <div class="column">
+                <h1 class="title">Login</h1>
+                <form class="box" action="{% url 'music_app:sign_in' %}" method="post">
+                    {% csrf_token %}
+                    <div class="field">
+                        <label class="label">Username</label>
+                        <div class="control">
+                            <input class="input" type="text" name="username">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control">
+                            <input class="input" type="password" name="userpassword" placeholder="********">
+                        </div>
+                    </div>
+                    <input type="submit" class="button is-primary" value="Login">
+                </form>
+            </div>
+
+
+            <div class="column">
+                <h1 class="title">Sign Up</h1>
+                <form class='box' action="{% url 'music_app:sign_up' %}" method="post">
+                    {% csrf_token %}
+                    <div class="field">
+                        <label class="label">Username</label>
+                        <div class="control">
+                            <input class="input" type="text" name="newusername">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control">
+                            <input class="input" type="password" name="newuserpassword" placeholder="********">
+                        </div>
+                    </div>
+                    <input type="submit" class="button is-primary" value="Sign Up">
+                </form>
+            </div>
+        </div>
+
+    </section>
+
+</body>
+
+</html>

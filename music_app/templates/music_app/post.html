@@ -1,0 +1,30 @@
+
+{% if post.post_image %}
+    <img src="{{post.post_image.url}}" width="256px" alt="">
+{% endif %}
+
+<li>{{ post.post_text}} 
+    <p>posted by:{{post.post_author }}</p>
+    {% if request.user not in post.post_likers.all %}
+    <a href="{% url 'music_app:like' post.id %}">Like</a>
+
+    {{post.post_likers.all | length}} 
+    {% else %}
+        <a href="{% url 'music_app:like' post.id %}">Unlike</a>
+        {{post.post_likers.all | length}}
+    {% endif %}
+
+    {% for comment in post.comment_set.all %}
+        <p>{{comment.comment_text}}<br>
+       {{comment.comment_author.username}}</p>
+    {% endfor %}
+
+
+    
+
+    <form action="{%url 'music_app:post_comment' post.id%}" method="post">
+        {% csrf_token %}
+        <p><input type="text" name="post_conversation" placeholder="Comment Here"></p>
+        <p><input type="submit" value="Post Convesation"></p>
+    </form>
+</li>   

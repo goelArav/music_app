@@ -26,15 +26,15 @@ SECRET_KEY = 'django-insecure-+_#w$3mr&jk6_x2uwx%=%-efg()o8j80%_-5eg$#q^a_mri39&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'aravsmusicapp.eu.pythonanywhere.com']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'music_app.apps.MusicAppConfig',
-    'twitter_app.apps.TwitterAppConfig',
-    'polls.apps.PollsConfig',
+    # 'twitter_app.apps.TwitterAppConfig',
+    # 'polls.apps.PollsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('polls/', include('polls.urls')),
-    path('twitter_app/', include('twitter_app.urls')),
+    # path('polls/', include('polls.urls')),
+    # path('twitter_app/', include('twitter_app.urls')),
     path('music_app/', include('music_app.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
